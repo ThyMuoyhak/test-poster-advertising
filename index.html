@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <div id="product-container"></div>
+
+    <script>
+        // Fetch data from product.json
+        fetch('product.json')
+            .then(response => response.json())
+            .then(products => {
+                // Get the container where we want to display the products
+                const container = document.getElementById('product-container');
+
+                // Loop through each product and create elements to display
+                products.forEach(product => {
+                    // Create product card
+                    const productDiv = document.createElement('div');
+                    productDiv.classList.add('product');
+
+                    // Create image element
+                    const img = document.createElement('img');
+                    img.src = product.image;
+                    img.alt = product.name;
+                    img.style.width = '200px'; // Optional, adjust as needed
+                    productDiv.appendChild(img);
+
+                    // Create product name
+                    const name = document.createElement('h2');
+                    name.textContent = product.name;
+                    productDiv.appendChild(name);
+
+                    // Create product description
+                    const description = document.createElement('p');
+                    description.textContent = product.description;
+                    productDiv.appendChild(description);
+
+                    // Append product card to the container
+                    container.appendChild(productDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching product data:', error));
+    </script>
+</body>
+</html>
